@@ -12,15 +12,17 @@ namespace TestAzure.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        TestContext _db;
+        public HomeController(ILogger<HomeController> logger, TestContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var datalist = _db.DatabaseModels.ToList();
+            return View(datalist);
         }
 
         public IActionResult Privacy()
